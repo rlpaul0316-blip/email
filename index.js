@@ -2,6 +2,7 @@
 // Ad-placement bot entry point.
 // Stack: Node.js + Telegraf + PostgreSQL, deployable on Render.
 
+const http = require('http');
 const { Telegraf } = require('telegraf');
 const settings = require('./settings');
 const buyer = require('./buyerFlow');
@@ -67,6 +68,16 @@ bot.on('message', async (ctx, next) => {
   }
   return next();
 });
+
+// ---- keep-alive HTTP server ----
+// Binds Render's $PORT so the bot can run as a normal Web Service
+// (same deploy type as the YouTube bot). The bot itself still uses
+// polling via bot.launch(); this server just answers health checks.
+const PORT = process.env.PORT || 3000;
+http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('ok');
+}).listen(PORT, () => console.log(`Health server on ${PORT}`));
 
 // ---- boot ----
 (async () => {
