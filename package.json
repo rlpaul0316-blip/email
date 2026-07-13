@@ -1,0 +1,17 @@
+{
+  "name": "ad-placement-bot",
+  "version": "1.0.0",
+  "description": "Editable-theme ad placement Telegram bot: buyers pay to have their ad posted to channels you own. BTC/SOL/Stars.",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "telegraf": "^4.16.3",
+    "pg": "^8.11.5"
+  }
+}
